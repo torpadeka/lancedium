@@ -6,7 +6,7 @@
 
 These instructions are with the assumption that development/setup is being done in a local Windows machine, and the project is being setup for the first time.
 
-**If this has been done before, skip to *Running Local Project Deployment***
+**If this has been done before, skip to _Running Local Project Deployment_**
 
 ### Installing dfx
 
@@ -71,11 +71,19 @@ This will install required dependencies and initialize, pull and generate requir
 
 ## 🖥️ Running Local Project Deployment
 
-To deploy the canisters locally, simply run this command in a WSL terminal currently opened in the project's directory. If you continued from ***Initial Project Setup***, you should still have this open.
+To deploy the canisters locally, simply run this command in a WSL terminal currently opened in the project's directory. If you continued from **_Initial Project Setup_**, you should still have this open.
 
 If not, first open a Command Prompt terminal in the project's directory, and run the command `wsl`. This will convert the command prompt terminal to a WSL terminal but in the same directory.
 
-Then, simply run:
+Then, always run this command first:
+
+```
+dfx start --clean --background
+```
+
+**_This command must be done everytime the machine restarts!_**
+
+After that, run the command:
 
 ```
 npm run redeploy
