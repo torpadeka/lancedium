@@ -78,10 +78,12 @@ If not, first open a Command Prompt terminal in the project's directory, and run
 Then, always run this command first:
 
 ```
-dfx start --clean --background
+dfx start --background
 ```
 
 **_This command must be done everytime the machine restarts!_**
+
+The `--clean` flag can be added to the command above to clean and remove all persistent `stable` data in the canisters.
 
 After that, run the command:
 
