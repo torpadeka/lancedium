@@ -103,9 +103,11 @@ This will deploy all specified canisters in `dfx.json`, including the frontend a
 To do so, run a separate Command Prompt terminal in the project's directory, and directly run these commands:
 
 ```
-npm install
+npm install vite
 npm run frontend
 ```
+
+Reinstalling Vite packages in Windows again is important, since running `npm i` in WSL will only install Vite specifically for Linux. Doing this will change it so that Vite can run properly in Windows and support HMR. Ideally in deployment though, this platform-crossing **should not be done, and `npm i` should only be done once in a single platform.** But for development purposes, this is fine for now.
 
 Even though the frontend canister is deployed, you can simply use the local frontend development link instead. It will react to live changes in the code, and can still fully functionally call upon the backend functions.
 
