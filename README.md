@@ -74,9 +74,35 @@ This will install required dependencies and initialize, pull and generate requir
 
 ## 🖥️ Running Local Project Deployment
 
+### First Time?
+
 To deploy the canisters locally, simply run this command in a WSL terminal currently opened in the project's directory. If you continued from **_Initial Project Setup_**, you should still have this open.
 
-If not, first open a Command Prompt terminal in the project's directory, and run the command `wsl`. This will convert the command prompt terminal to a WSL terminal but in the same directory.
+It is recommended to run the frontend separately outside the WSL environment, since WSL does not support HMR, and the deployed canisters obviously cannot adjust dynamically to development changes.
+
+To do so, shutdown WSL (if it is running), then run a separate Command Prompt terminal in the project's directory, and directly run these commands:
+
+```
+wsl --shutdown
+npm install vite
+npm run frontend
+```
+
+Reinstalling Vite packages in Windows again is important, since running `npm i` in WSL will only install Vite specifically for Linux. Doing this will change it so that Vite can run properly in Windows and support HMR. Ideally in deployment though, this platform-crossing **should not be done, and `npm i` should only be done once in a single platform.** But for development purposes, this is fine for now.
+
+Even though the frontend canister is deployed, you can simply use the local frontend development link instead. It will react to live changes in the code, and can still fully functionally call upon the backend functions.
+
+If the backend code is changed though, the canisters will need to be redeployed. In this case, simply run `npm run redeploy` again in a WSL terminal in the project's directory.
+
+### Repeatable Steps
+
+If all the initial setups have been done before, next time you simply need to only repeat these steps.
+
+First, open WSL in a Command Prompt terminal.
+
+```
+wsl
+```
 
 Then, always run this command first:
 
@@ -94,21 +120,6 @@ After that, run the command:
 npm run redeploy
 ```
 
-Again, provide the correct "passphrase" from your developer identity when prompted.
+Provide the correct "passphrase" from your developer identity when prompted.
 
 This will deploy all specified canisters in `dfx.json`, including the frontend and the backend. If all goes well, links should be outputted, where they can be visited to access the frontend and the backend.
-
-**However**, it is recommended to run the frontend separately outside the WSL environment, since WSL does not support HMR, and the deployed canisters obviously cannot adjust dynamically to development changes.
-
-To do so, run a separate Command Prompt terminal in the project's directory, and directly run these commands:
-
-```
-npm install vite
-npm run frontend
-```
-
-Reinstalling Vite packages in Windows again is important, since running `npm i` in WSL will only install Vite specifically for Linux. Doing this will change it so that Vite can run properly in Windows and support HMR. Ideally in deployment though, this platform-crossing **should not be done, and `npm i` should only be done once in a single platform.** But for development purposes, this is fine for now.
-
-Even though the frontend canister is deployed, you can simply use the local frontend development link instead. It will react to live changes in the code, and can still fully functionally call upon the backend functions.
-
-If the backend code is changed though, the canisters will need to be redeployed. In this case, simply run `npm run redeploy` again in a WSL terminal in the project's directory.

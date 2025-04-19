@@ -1,7 +1,7 @@
 {
-  "name": "vite-react-motoko",
+  "name": "lancedium",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "resolvedeps": "dfx deps pull && dfx deps init && dfx generate internet_identity",
