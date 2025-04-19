@@ -10,8 +10,15 @@ import React, {
     useState,
     ReactNode,
 } from "react";
-import { canisterId, createActor } from "@/declarations/internet_identity";
 import { ActorSubclass, HttpAgent, Identity } from "@dfinity/agent";
+import {
+    canisterId as internetIdentityCanisterId,
+    createActor as createInternetIdentityActor,
+} from "@/declarations/internet_identity";
+import {
+    canisterId as userProfileCanisterId,
+    createActor as createUserProfileActor,
+} from "@/declarations/user_profile";
 
 interface AuthContextType {
     isAuthenticated: boolean;
@@ -21,23 +28,24 @@ interface AuthContextType {
     identity: Identity | null;
     principal: string | null;
     whoamiActor: ActorSubclass<any> | null;
+    userProfileActor: ActorSubclass<any> | null; // Added for user_profile
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const getIdentityProvider = (): string | undefined => {
     if (typeof window !== "undefined") {
-        const isLocal = process.env.DFX_NETWORK !== "ic";
+        const isLocal = import.meta.env.VITE_DFX_NETWORK !== "ic";
         const isSafari = /^((?!chrome|android).)*safari/i.test(
             navigator.userAgent
         );
         if (isLocal && isSafari) {
-            return `http://localhost:4943/?canisterId=${process.env.CANISTER_ID_INTERNET_IDENTITY}`;
+            return `http://127.0.0.1:4943/?canisterId=${import.meta.env.VITE_CANISTER_ID_INTERNET_IDENTITY}`;
         } else if (isLocal) {
-            return `http://${process.env.CANISTER_ID_INTERNET_IDENTITY}.localhost:4943`;
+            return `http://${import.meta.env.VITE_CANISTER_ID_INTERNET_IDENTITY}.localhost:4943`;
         }
     }
-    return undefined;
+    return "https://identity.ic0.app";
 };
 
 export const defaultOptions = {
@@ -59,6 +67,8 @@ export const useAuthClient = (options = defaultOptions) => {
     const [whoamiActor, setWhoamiActor] = useState<ActorSubclass<any> | null>(
         null
     );
+    const [userProfileActor, setUserProfileActor] =
+        useState<ActorSubclass<any> | null>(null);
 
     useEffect(() => {
         AuthClient.create(options.createOptions).then((client) => {
@@ -88,11 +98,20 @@ export const useAuthClient = (options = defaultOptions) => {
 
         setAuthClient(client);
 
-        const actor = createActor(canisterId, {
+        const agent = new HttpAgent({ identity });
+
+        const internetIdentityActor = createInternetIdentityActor(
+            internetIdentityCanisterId,
+            {
+                agentOptions: { identity },
+            }
+        );
+        setWhoamiActor(internetIdentityActor);
+
+        const userProfileActor = createUserProfileActor(userProfileCanisterId, {
             agentOptions: { identity },
         });
-
-        setWhoamiActor(actor as ActorSubclass<any>);
+        setUserProfileActor(userProfileActor);
     }
 
     async function logout() {
@@ -109,6 +128,7 @@ export const useAuthClient = (options = defaultOptions) => {
         identity,
         principal,
         whoamiActor,
+        userProfileActor,
     };
 };
 
@@ -118,7 +138,6 @@ interface AuthProviderProps {
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const auth = useAuthClient();
-
     return <AuthContext.Provider value={auth}>{children}</AuthContext.Provider>;
 };
 

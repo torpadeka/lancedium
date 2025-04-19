@@ -11,13 +11,16 @@
                 "node_compatibility": true
             }
         },
+        "user_profile": {
+            "dependencies": ["internet_identity"],
+            "type": "motoko",
+            "main": "backend/UserProfile.mo",
+            "declarations": {
+                "node_compatibility": true
+            }
+        },
         "frontend": {
             "dependencies": ["backend"],
-            "type": "assets",
-            "source": ["dist/"]
-        },
-        "user_profile": {
-            "dependencies": [],
             "type": "assets",
             "source": ["dist/"]
         }

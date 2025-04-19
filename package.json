@@ -5,8 +5,7 @@
   "type": "module",
   "scripts": {
     "resolvedeps": "dfx deps pull && dfx deps init && dfx generate internet_identity",
-    "redeploy": "dfx canister create backend && dfx generate backend && dfx deps init && dfx deps deploy && dfx deploy",
-    "setup": "npm i && dfx canister create backend && dfx generate backend && dfx deploy",
+    "redeploy": "dfx canister create backend && dfx canister create user_profile && dfx generate backend && dfx generate user_profile && dfx deps init && dfx deps deploy && dfx deploy",
     "start": "run-p frontend backend",
     "frontend": "vite --port 3000",
     "backend": "mo-dev --generate --deploy -y",
@@ -30,6 +29,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "ethers": "^6.13.5",
+    "framer-motion": "^12.7.4",
     "lucide-react": "^0.488.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
