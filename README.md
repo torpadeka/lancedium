@@ -26,6 +26,8 @@ wsl --install -d ubuntu
 
 3. Follow [this](https://learn.microsoft.com/en-us/windows/dev-environment/javascript/nodejs-on-wsl) guide in order to install Node.js within the WSL environment.
 
+**NOTE:** To ensure maximum compatibility and reduce dependency issues, please use **Node version 22.8.0** and **npm version 10.8.2** on both WSL and Windows!
+
 4. To confirm whether dfx was installed correctly, close and re-open the WSL terminal and run:
 
 ```
@@ -62,6 +64,7 @@ After cloning, run the following commands:
 ```
 cd lancedium/
 npm install
+mops install
 npm run resolvedeps
 ```
 

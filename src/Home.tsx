@@ -5,7 +5,7 @@ import reactLogo from './assets/react.svg';
 import viteLogo from './assets/vite.svg';
 import { Button } from './components/ui/button';
 
-function App() {
+function Home() {
   const { data: count, refetch } = useQueryCall({
     functionName: 'get',
   });
@@ -24,4 +24,4 @@ function App() {
   );
 }
 
-export default App;
+export default Home;
