@@ -28,7 +28,13 @@ wsl --install -d ubuntu
 
 **NOTE:** To ensure maximum compatibility and reduce dependency issues, please use **Node version 22.8.0** and **npm version 10.8.2** on both WSL and Windows!
 
-4. To confirm whether dfx was installed correctly, close and re-open the WSL terminal and run:
+4. Install dfx by running this command inside a WSL terminal:
+
+```
+sh -ci "$(curl -fsSL https://internetcomputer.org/install.sh)"
+```
+
+5. To confirm whether dfx was installed correctly, close and re-open the WSL terminal and run:
 
 ```
 dfx --version
@@ -64,7 +70,10 @@ After cloning, run the following commands:
 ```
 cd lancedium/
 npm install
+
+npm i -g ic-mops
 mops install
+
 npm run resolvedeps
 ```
 

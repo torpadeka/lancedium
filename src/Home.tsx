@@ -1,5 +1,6 @@
 "use client";
 
+import lancediumLogo from "./assets/lancedium-logo-transparent.png";
 import { useState, useEffect } from "react";
 import { Link } from "react-router";
 import { Button } from "@/components/ui/button";
@@ -40,7 +41,7 @@ const Home = () => {
                     <div className="mb-8 relative">
                         <div className="absolute -inset-6 rounded-full bg-gradient-to-r from-amber-100 to-orange-100 blur-xl opacity-70"></div>
                         <img
-                            src="/lancedium-logo-transparent.png"
+                            src={lancediumLogo}
                             alt="Lancedium Logo"
                             className="relative w-32 h-32 object-contain"
                         />
