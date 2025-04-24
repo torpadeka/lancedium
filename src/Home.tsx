@@ -14,7 +14,7 @@ const Home = () => {
     useEffect(() => {
         setMounted(true);
     }, []);
-
+    
     return (
         <div className="min-h-dvh flex flex-col bg-gradient-to-b from-amber-50 to-orange-50">
             {/* Minimal header */}

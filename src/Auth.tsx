@@ -12,11 +12,11 @@ const Auth = () => {
     const { isAuthenticated, login, logout, principal } = useAuthClient();
     const navigate = useNavigate();
 
-    useEffect(() => {
-        if (isAuthenticated) {
-            navigate("/");
-        }
-    }, [isAuthenticated, navigate]);
+    // useEffect(() => {
+    //     if (isAuthenticated) {
+    //         navigate("/");
+    //     }
+    // }, [isAuthenticated, navigate]);
 
     return (
         <div className="flex min-h-dvh">

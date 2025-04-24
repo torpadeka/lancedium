@@ -4,8 +4,7 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "resolvedeps": "dfx deps pull && dfx deps init && dfx generate internet_identity",
-    "redeploy": "dfx canister create backend && dfx canister create user_profile && dfx generate backend && dfx generate user_profile && dfx deps init && dfx deps deploy && dfx deploy",
+    "redeploy": "dfx deploy internet_identity && dfx generate internet_identity && dfx deploy && dfx generate backend && dfx generate user_profile",
     "start": "run-p frontend backend",
     "frontend": "vite --port 3000",
     "backend": "mo-dev --generate --deploy -y",
