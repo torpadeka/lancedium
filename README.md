@@ -28,7 +28,13 @@ wsl --install -d ubuntu
 
 **NOTE:** To ensure maximum compatibility and reduce dependency issues, please use **Node version 22.8.0** and **npm version 10.8.2** on both WSL and Windows!
 
-4. To confirm whether dfx was installed correctly, close and re-open the WSL terminal and run:
+4. Install dfx by running this command inside a WSL terminal:
+
+```
+sh -ci "$(curl -fsSL https://internetcomputer.org/install.sh)"
+```
+
+5. To confirm whether dfx was installed correctly, close and re-open the WSL terminal and run:
 
 ```
 dfx --version
@@ -64,8 +70,9 @@ After cloning, run the following commands:
 ```
 cd lancedium/
 npm install
+
+npm i -g ic-mops
 mops install
-npm run resolvedeps
 ```
 
 Provide the "passphrase" that was registered with the developer identity when prompted.
@@ -85,7 +92,6 @@ To do so, shutdown WSL (if it is running), then run a separate Command Prompt te
 ```
 wsl --shutdown
 npm install vite
-npm run frontend
 ```
 
 Reinstalling Vite packages in Windows again is important, since running `npm i` in WSL will only install Vite specifically for Linux. Doing this will change it so that Vite can run properly in Windows and support HMR. Ideally in deployment though, this platform-crossing **should not be done, and `npm i` should only be done once in a single platform.** But for development purposes, this is fine for now.
@@ -107,12 +113,12 @@ wsl
 Then, always run this command first:
 
 ```
-dfx start --background
+dfx start --clean --background
 ```
 
 **_This command must be done everytime the machine restarts!_**
 
-The `--clean` flag can be added to the command above to clean and remove all persistent `stable` data in the canisters.
+The `--clean` flag above is meant to clean and remove all persistent `stable` data in the canisters.
 
 After that, run the command:
 
@@ -123,3 +129,9 @@ npm run redeploy
 Provide the correct "passphrase" from your developer identity when prompted.
 
 This will deploy all specified canisters in `dfx.json`, including the frontend and the backend. If all goes well, links should be outputted, where they can be visited to access the frontend and the backend.
+
+After that, to run a HMR-supported frontend local development server, simply run:
+
+```
+npm run frontend
+```
