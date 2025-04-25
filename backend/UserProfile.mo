@@ -4,16 +4,10 @@ import Text "mo:base/Text";
 import Time "mo:base/Time";
 import Result "mo:base/Result";
 import Iter "mo:base/Iter";
+import Types "./types";
 
 actor UserProfile {
-    // Define User Profile type
-    type UserProfile = {
-        username : Text;
-        email : ?Text;
-        bio : ?Text;
-        createdAt : Time.Time;
-        updatedAt : Time.Time;
-    };
+    type UserProfile = Types.UserProfile;
 
     // Stable storage for profiles (principal -> profile)
     stable var profiles : [(Principal, UserProfile)] = [];
