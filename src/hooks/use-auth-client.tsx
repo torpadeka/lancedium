@@ -19,6 +19,7 @@ import {
     canisterId as userProfileCanisterId,
     createActor as createUserProfileActor,
 } from "@/declarations/user_profile";
+import { Principal } from "@ic-reactor/react/dist/types";
 
 interface AuthContextType {
     isAuthenticated: boolean;
@@ -63,6 +64,7 @@ export const useAuthClient = (options = defaultOptions) => {
     const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
     const [authClient, setAuthClient] = useState<AuthClient | null>(null);
     const [identity, setIdentity] = useState<Identity | null>(null);
+    const [principalObject, setPrincipalObject] = useState<Principal | null>(null);
     const [principal, setPrincipal] = useState<string | null>(null);
     const [whoamiActor, setWhoamiActor] = useState<ActorSubclass<any> | null>(
         null
@@ -93,7 +95,10 @@ export const useAuthClient = (options = defaultOptions) => {
         const identity = client.getIdentity();
         setIdentity(identity);
 
-        const principal = identity.getPrincipal().toText();
+        const principalObject = identity.getPrincipal();
+        setPrincipalObject(principalObject);
+
+        const principal = principalObject.toText();
         setPrincipal(principal);
 
         setAuthClient(client);
@@ -126,6 +131,7 @@ export const useAuthClient = (options = defaultOptions) => {
         logout,
         authClient,
         identity,
+        principalObject,
         principal,
         whoamiActor,
         userProfileActor,
